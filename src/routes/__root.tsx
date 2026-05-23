@@ -78,6 +78,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Nathan Schwartz Photography & Graphics" },
+      { name: "description", content: "Nathan Schwartz's Photography and Graphic Design Website" },
+      { property: "og:description", content: "Nathan Schwartz's Photography and Graphic Design Website" },
+      { name: "twitter:description", content: "Nathan Schwartz's Photography and Graphic Design Website" },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/fafdecb8-e0df-4c7d-b198-7fd029949843/id-preview-a83530ae--bd7694ca-fdfe-4018-80f6-fe00cea6e7af.lovable.app-1779579653682.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/fafdecb8-e0df-4c7d-b198-7fd029949843/id-preview-a83530ae--bd7694ca-fdfe-4018-80f6-fe00cea6e7af.lovable.app-1779579653682.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
