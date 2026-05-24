@@ -1,12 +1,17 @@
 import { Link, Outlet } from "@tanstack/react-router";
+import logoWebp from "../assets/logo.webp";
 
 function Nav() {
   return (
     <nav className="sticky top-0 z-50 flex items-center justify-between border-b border-white/10 bg-dark/90 px-6 py-5 backdrop-blur-md md:px-8">
-      <Link to="/" className="flex items-center gap-3 font-display text-lg font-black uppercase tracking-widest">
-        <span className="text-electric">NS</span>
-        <span className="text-vivid">/</span>
-        <span>Studio</span>
+      <Link to="/" className="flex items-center gap-3 pl-4 md:pl-6" aria-label="Nathan Schwartz Photography % Graphics">
+        <picture>
+          <source srcSet={logoWebp} type="image/webp" />
+          <img src={logoWebp} alt="Nathan Schwartz Photography & Graphics" className="h-16 md:h-20 w-auto object-contain" />
+        </picture>
+        <span className="ml-3 text-xs md:text-sm font-display font-black uppercase tracking-widest">
+          Nathan Schwartz Photography % Graphics
+        </span>
       </Link>
       <div className="hidden gap-8 text-xs font-semibold uppercase tracking-widest md:flex">
         <Link to="/portfolio" className="transition-colors hover:text-vivid" activeProps={{ className: "text-vivid" }}>
