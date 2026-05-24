@@ -1,10 +1,11 @@
 import { Link, Outlet } from "@tanstack/react-router";
+import logo from "@/assets/logo.jpeg";
 
 function Nav() {
   return (
     <nav className="sticky top-0 z-50 flex items-center justify-between border-b border-white/10 bg-dark/90 px-6 py-5 backdrop-blur-md md:px-8">
-      <Link to="/" className="font-display text-2xl font-black italic tracking-tighter">
-        NS<span className="text-electric">.</span>STUDIO
+      <Link to="/" className="flex items-center gap-3">
+        <img src={logo} alt="NS Studio logo" className="h-10 w-auto object-contain" />
       </Link>
       <div className="hidden gap-8 text-xs font-semibold uppercase tracking-widest md:flex">
         <Link to="/portfolio" className="transition-colors hover:text-vivid" activeProps={{ className: "text-vivid" }}>
