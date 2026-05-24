@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import basketballImg from "@/assets/work-basketball.jpg";
-import posterImg from "@/assets/work-poster.jpg";
-import soccerImg from "@/assets/work-soccer.jpg";
-import brandImg from "@/assets/work-brand.jpg";
-import swimmerImg from "@/assets/work-swimmer.jpg";
-import portraitImg from "@/assets/about-portrait.jpg";
+import basketballImg from "@/assets/optimized/work-basketball-preview.jpg";
+import posterImg from "@/assets/optimized/work-poster-preview.jpg";
+import soccerImg from "@/assets/optimized/work-soccer-preview.jpg";
+import brandImg from "@/assets/optimized/work-brand-preview.jpg";
+import swimmerImg from "@/assets/optimized/work-swimmer-preview.jpg";
+import portraitImg from "@/assets/optimized/about-portrait-preview.jpg";
 
 export const Route = createFileRoute("/_site/portfolio")({
   head: () => ({

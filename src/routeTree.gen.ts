@@ -13,6 +13,7 @@ import { Route as VaultRouteImport } from './routes/vault'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SiteRouteImport } from './routes/_site'
 import { Route as SiteIndexRouteImport } from './routes/_site.index'
+import { Route as VaultGalleryIdRouteImport } from './routes/vault.$galleryId'
 import { Route as SiteServicesRouteImport } from './routes/_site.services'
 import { Route as SitePortfolioRouteImport } from './routes/_site.portfolio'
 import { Route as SiteContactRouteImport } from './routes/_site.contact'
@@ -36,6 +37,11 @@ const SiteIndexRoute = SiteIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => SiteRoute,
+} as any)
+const VaultGalleryIdRoute = VaultGalleryIdRouteImport.update({
+  id: '/$galleryId',
+  path: '/$galleryId',
+  getParentRoute: () => VaultRoute,
 } as any)
 const SiteServicesRoute = SiteServicesRouteImport.update({
   id: '/services',
@@ -61,30 +67,33 @@ const SiteAboutRoute = SiteAboutRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof SiteIndexRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/vault': typeof VaultRoute
+  '/vault': typeof VaultRouteWithChildren
   '/about': typeof SiteAboutRoute
   '/contact': typeof SiteContactRoute
   '/portfolio': typeof SitePortfolioRoute
   '/services': typeof SiteServicesRoute
+  '/vault/$galleryId': typeof VaultGalleryIdRoute
 }
 export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/vault': typeof VaultRoute
+  '/vault': typeof VaultRouteWithChildren
   '/about': typeof SiteAboutRoute
   '/contact': typeof SiteContactRoute
   '/portfolio': typeof SitePortfolioRoute
   '/services': typeof SiteServicesRoute
+  '/vault/$galleryId': typeof VaultGalleryIdRoute
   '/': typeof SiteIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_site': typeof SiteRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/vault': typeof VaultRoute
+  '/vault': typeof VaultRouteWithChildren
   '/_site/about': typeof SiteAboutRoute
   '/_site/contact': typeof SiteContactRoute
   '/_site/portfolio': typeof SitePortfolioRoute
   '/_site/services': typeof SiteServicesRoute
+  '/vault/$galleryId': typeof VaultGalleryIdRoute
   '/_site/': typeof SiteIndexRoute
 }
 export interface FileRouteTypes {
@@ -97,6 +106,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/portfolio'
     | '/services'
+    | '/vault/$galleryId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/sitemap.xml'
@@ -105,6 +115,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/portfolio'
     | '/services'
+    | '/vault/$galleryId'
     | '/'
   id:
     | '__root__'
@@ -115,13 +126,14 @@ export interface FileRouteTypes {
     | '/_site/contact'
     | '/_site/portfolio'
     | '/_site/services'
+    | '/vault/$galleryId'
     | '/_site/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   SiteRoute: typeof SiteRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  VaultRoute: typeof VaultRoute
+  VaultRoute: typeof VaultRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -153,6 +165,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/'
       preLoaderRoute: typeof SiteIndexRouteImport
       parentRoute: typeof SiteRoute
+    }
+    '/vault/$galleryId': {
+      id: '/vault/$galleryId'
+      path: '/$galleryId'
+      fullPath: '/vault/$galleryId'
+      preLoaderRoute: typeof VaultGalleryIdRouteImport
+      parentRoute: typeof VaultRoute
     }
     '/_site/services': {
       id: '/_site/services'
@@ -203,10 +222,20 @@ const SiteRouteChildren: SiteRouteChildren = {
 
 const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
 
+interface VaultRouteChildren {
+  VaultGalleryIdRoute: typeof VaultGalleryIdRoute
+}
+
+const VaultRouteChildren: VaultRouteChildren = {
+  VaultGalleryIdRoute: VaultGalleryIdRoute,
+}
+
+const VaultRouteWithChildren = VaultRoute._addFileChildren(VaultRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   SiteRoute: SiteRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  VaultRoute: VaultRoute,
+  VaultRoute: VaultRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

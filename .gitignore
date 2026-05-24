@@ -32,3 +32,4 @@ scripts/
 *.sln
 *.sw?
 package-lock.json
+/.tools
