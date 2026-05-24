@@ -1,4 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
+
+const dropdownStyles = `
+  select, .tally-select {
+    background: transparent !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+  }
+  select:focus, .tally-select:focus {
+    border-color: #00d9ff !important;
+    background: transparent !important;
+  }
+`;
 
 export const Route = createFileRoute("/_site/contact")({
   head: () => ({
@@ -16,9 +29,37 @@ export const Route = createFileRoute("/_site/contact")({
 });
 
 function Contact() {
+  useEffect(() => {
+    // Inject minimal styles for dropdown
+    const styleEl = document.createElement("style");
+    styleEl.textContent = dropdownStyles;
+    document.head.appendChild(styleEl);
+
+    // Load Tally embed script
+    const w = "https://tally.so/widgets/embed.js";
+    const v = function () {
+      if (typeof (window as any).Tally !== "undefined") {
+        (window as any).Tally.loadEmbeds();
+      } else {
+        document.querySelectorAll("iframe[data-tally-src]:not([src])").forEach((e) => {
+          (e as any).src = (e as any).dataset.tallySrc;
+        });
+      }
+    };
+    if (typeof (window as any).Tally !== "undefined") {
+      v();
+    } else if (document.querySelector(`script[src="${w}"]`) == null) {
+      const s = document.createElement("script");
+      s.src = w;
+      s.onload = v;
+      s.onerror = v;
+      document.body.appendChild(s);
+    }
+  }, []);
+
   return (
     <section className="px-8 py-24">
-      <div className="mx-auto grid max-w-6xl grid-cols-1 gap-16 lg:grid-cols-2">
+      <div className="grid max-w-6xl grid-cols-1 gap-16 lg:grid-cols-2">
         <div>
           <p className="mb-4 text-xs font-bold uppercase tracking-widest text-vivid">Contact</p>
           <h1 className="font-display text-5xl font-black uppercase italic leading-[0.9] md:text-7xl">
@@ -31,77 +72,25 @@ function Contact() {
           <div className="mt-12 space-y-6">
             <div>
               <div className="text-[10px] font-bold uppercase tracking-widest text-white/40">Email</div>
-              <div className="mt-1 text-xl font-medium">hello@nsstudio.com</div>
-            </div>
-            <div>
-              <div className="text-[10px] font-bold uppercase tracking-widest text-white/40">Based In</div>
-              <div className="mt-1 text-xl font-medium">Available Worldwide</div>
+              <a href="mailto:nathan.schwartz.photo@gmail.com" className="mt-1 text-xl font-medium hover:text-vivid transition-colors">
+                nathan.schwartz.photo@gmail.com
+              </a>
             </div>
           </div>
         </div>
 
         <div className="relative border border-white/10 p-8 md:p-12">
           <div className="absolute -left-4 -top-4 h-8 w-8 bg-vivid" />
-          <form className="grid grid-cols-1 gap-8 md:grid-cols-2">
-            <div className="flex flex-col gap-2">
-              <label htmlFor="name" className="text-[10px] font-bold uppercase tracking-widest text-white/50">
-                Your Name
-              </label>
-              <input
-                id="name"
-                type="text"
-                className="border-b border-white/20 bg-transparent py-2 outline-none transition-colors focus:border-electric"
-                placeholder="Alex Reed"
-              />
-            </div>
-            <div className="flex flex-col gap-2">
-              <label htmlFor="email" className="text-[10px] font-bold uppercase tracking-widest text-white/50">
-                Email
-              </label>
-              <input
-                id="email"
-                type="email"
-                className="border-b border-white/20 bg-transparent py-2 outline-none transition-colors focus:border-electric"
-                placeholder="alex@team.com"
-              />
-            </div>
-            <div className="flex flex-col gap-2 md:col-span-2">
-              <label htmlFor="project" className="text-[10px] font-bold uppercase tracking-widest text-white/50">
-                Project Type
-              </label>
-              <select
-                id="project"
-                className="appearance-none border-b border-white/20 bg-dark py-2 outline-none transition-colors focus:border-electric"
-              >
-                <option>Action Photography Shoot</option>
-                <option>Commercial Portrait Session</option>
-                <option>Graphic Design & Identity</option>
-                <option>Full Brand Package</option>
-              </select>
-            </div>
-            <div className="flex flex-col gap-2 md:col-span-2">
-              <label htmlFor="details" className="text-[10px] font-bold uppercase tracking-widest text-white/50">
-                Project Details
-              </label>
-              <textarea
-                id="details"
-                rows={4}
-                className="border-b border-white/20 bg-transparent py-2 outline-none transition-colors focus:border-electric"
-                placeholder="Tell us about the athlete, brand, or event..."
-              />
-            </div>
-            <div className="md:col-span-2">
-              <button
-                type="button"
-                className="w-full bg-electric py-6 font-display text-2xl italic uppercase tracking-tighter text-white transition-all duration-300 hover:bg-vivid hover:text-dark"
-              >
-                Send Brief →
-              </button>
-              <p className="mt-3 text-center text-[10px] uppercase tracking-widest text-white/30">
-                Form submission wiring coming soon
-              </p>
-            </div>
-          </form>
+          <iframe
+            data-tally-src="https://tally.so/embed/pbkP7V?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1&accentColor=%23ff00ff&hideBranding=1"
+            loading="lazy"
+            width="100%"
+            height="580"
+            frameBorder="0"
+            marginHeight={0}
+            marginWidth={0}
+            title="Contact Me"
+          />
         </div>
       </div>
     </section>

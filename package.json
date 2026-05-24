@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite dev",
     "convert:logo": "node scripts/convert-logo.js",
+    "convert:chatgpt-image": "node scripts/convert-chatgpt-image.js",
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
