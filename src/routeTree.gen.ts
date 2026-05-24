@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VaultRouteImport } from './routes/vault'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SiteRouteImport } from './routes/_site'
 import { Route as SiteIndexRouteImport } from './routes/_site.index'
@@ -17,6 +18,11 @@ import { Route as SitePortfolioRouteImport } from './routes/_site.portfolio'
 import { Route as SiteContactRouteImport } from './routes/_site.contact'
 import { Route as SiteAboutRouteImport } from './routes/_site.about'
 
+const VaultRoute = VaultRouteImport.update({
+  id: '/vault',
+  path: '/vault',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
@@ -55,6 +61,7 @@ const SiteAboutRoute = SiteAboutRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof SiteIndexRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/vault': typeof VaultRoute
   '/about': typeof SiteAboutRoute
   '/contact': typeof SiteContactRoute
   '/portfolio': typeof SitePortfolioRoute
@@ -62,6 +69,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/vault': typeof VaultRoute
   '/about': typeof SiteAboutRoute
   '/contact': typeof SiteContactRoute
   '/portfolio': typeof SitePortfolioRoute
@@ -72,6 +80,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_site': typeof SiteRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/vault': typeof VaultRoute
   '/_site/about': typeof SiteAboutRoute
   '/_site/contact': typeof SiteContactRoute
   '/_site/portfolio': typeof SitePortfolioRoute
@@ -83,16 +92,25 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/sitemap.xml'
+    | '/vault'
     | '/about'
     | '/contact'
     | '/portfolio'
     | '/services'
   fileRoutesByTo: FileRoutesByTo
-  to: '/sitemap.xml' | '/about' | '/contact' | '/portfolio' | '/services' | '/'
+  to:
+    | '/sitemap.xml'
+    | '/vault'
+    | '/about'
+    | '/contact'
+    | '/portfolio'
+    | '/services'
+    | '/'
   id:
     | '__root__'
     | '/_site'
     | '/sitemap.xml'
+    | '/vault'
     | '/_site/about'
     | '/_site/contact'
     | '/_site/portfolio'
@@ -103,10 +121,18 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   SiteRoute: typeof SiteRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  VaultRoute: typeof VaultRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/vault': {
+      id: '/vault'
+      path: '/vault'
+      fullPath: '/vault'
+      preLoaderRoute: typeof VaultRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -180,6 +206,7 @@ const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   SiteRoute: SiteRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  VaultRoute: VaultRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
