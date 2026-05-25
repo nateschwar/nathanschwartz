@@ -9,24 +9,32 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as VaultRouteImport } from './routes/vault'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as SiteRouteImport } from './routes/_site'
 import { Route as SiteIndexRouteImport } from './routes/_site.index'
-import { Route as VaultGalleryIdRouteImport } from './routes/vault.$galleryId'
+import { Route as GalleryGalleryIdRouteImport } from './routes/gallery.$galleryId'
 import { Route as SiteServicesRouteImport } from './routes/_site.services'
 import { Route as SitePortfolioRouteImport } from './routes/_site.portfolio'
 import { Route as SiteContactRouteImport } from './routes/_site.contact'
 import { Route as SiteAboutRouteImport } from './routes/_site.about'
+import { Route as GalleryBAHSSportsPhotoGirlsLacrosseRouteImport } from './routes/gallery.BAHSSportsPhoto.girls-lacrosse'
+import { Route as GalleryBAHSSportsPhotoGirlsBasketballRouteImport } from './routes/gallery.BAHSSportsPhoto.girls-basketball'
+import { Route as GalleryBAHSSportsPhotoFootballRouteImport } from './routes/gallery.BAHSSportsPhoto.football'
+import { Route as GalleryBAHSSportsPhotoBoysVolleyballRouteImport } from './routes/gallery.BAHSSportsPhoto.boys-volleyball'
+import { Route as GalleryBAHSSportsPhotoBoysLacrosseRouteImport } from './routes/gallery.BAHSSportsPhoto.boys-lacrosse'
+import { Route as GalleryBAHSSportsPhotoBoysBasketballRouteImport } from './routes/gallery.BAHSSportsPhoto.boys-basketball'
+import { Route as GalleryGalleryIdSubGalleryIdRouteImport } from './routes/gallery.$galleryId.$subGalleryId'
+import { Route as GalleryGalleryIdSubSubGalleryIdRouteImport } from './routes/gallery.$galleryId.sub.$subGalleryId'
 
-const VaultRoute = VaultRouteImport.update({
-  id: '/vault',
-  path: '/vault',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GalleryRoute = GalleryRouteImport.update({
+  id: '/gallery',
+  path: '/gallery',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SiteRoute = SiteRouteImport.update({
@@ -38,10 +46,10 @@ const SiteIndexRoute = SiteIndexRouteImport.update({
   path: '/',
   getParentRoute: () => SiteRoute,
 } as any)
-const VaultGalleryIdRoute = VaultGalleryIdRouteImport.update({
+const GalleryGalleryIdRoute = GalleryGalleryIdRouteImport.update({
   id: '/$galleryId',
   path: '/$galleryId',
-  getParentRoute: () => VaultRoute,
+  getParentRoute: () => GalleryRoute,
 } as any)
 const SiteServicesRoute = SiteServicesRouteImport.update({
   id: '/services',
@@ -63,93 +71,189 @@ const SiteAboutRoute = SiteAboutRouteImport.update({
   path: '/about',
   getParentRoute: () => SiteRoute,
 } as any)
+const GalleryBAHSSportsPhotoGirlsLacrosseRoute =
+  GalleryBAHSSportsPhotoGirlsLacrosseRouteImport.update({
+    id: '/BAHSSportsPhoto/girls-lacrosse',
+    path: '/BAHSSportsPhoto/girls-lacrosse',
+    getParentRoute: () => GalleryRoute,
+  } as any)
+const GalleryBAHSSportsPhotoGirlsBasketballRoute =
+  GalleryBAHSSportsPhotoGirlsBasketballRouteImport.update({
+    id: '/BAHSSportsPhoto/girls-basketball',
+    path: '/BAHSSportsPhoto/girls-basketball',
+    getParentRoute: () => GalleryRoute,
+  } as any)
+const GalleryBAHSSportsPhotoFootballRoute =
+  GalleryBAHSSportsPhotoFootballRouteImport.update({
+    id: '/BAHSSportsPhoto/football',
+    path: '/BAHSSportsPhoto/football',
+    getParentRoute: () => GalleryRoute,
+  } as any)
+const GalleryBAHSSportsPhotoBoysVolleyballRoute =
+  GalleryBAHSSportsPhotoBoysVolleyballRouteImport.update({
+    id: '/BAHSSportsPhoto/boys-volleyball',
+    path: '/BAHSSportsPhoto/boys-volleyball',
+    getParentRoute: () => GalleryRoute,
+  } as any)
+const GalleryBAHSSportsPhotoBoysLacrosseRoute =
+  GalleryBAHSSportsPhotoBoysLacrosseRouteImport.update({
+    id: '/BAHSSportsPhoto/boys-lacrosse',
+    path: '/BAHSSportsPhoto/boys-lacrosse',
+    getParentRoute: () => GalleryRoute,
+  } as any)
+const GalleryBAHSSportsPhotoBoysBasketballRoute =
+  GalleryBAHSSportsPhotoBoysBasketballRouteImport.update({
+    id: '/BAHSSportsPhoto/boys-basketball',
+    path: '/BAHSSportsPhoto/boys-basketball',
+    getParentRoute: () => GalleryRoute,
+  } as any)
+const GalleryGalleryIdSubGalleryIdRoute =
+  GalleryGalleryIdSubGalleryIdRouteImport.update({
+    id: '/$subGalleryId',
+    path: '/$subGalleryId',
+    getParentRoute: () => GalleryGalleryIdRoute,
+  } as any)
+const GalleryGalleryIdSubSubGalleryIdRoute =
+  GalleryGalleryIdSubSubGalleryIdRouteImport.update({
+    id: '/sub/$subGalleryId',
+    path: '/sub/$subGalleryId',
+    getParentRoute: () => GalleryGalleryIdRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof SiteIndexRoute
+  '/gallery': typeof GalleryRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/vault': typeof VaultRouteWithChildren
   '/about': typeof SiteAboutRoute
   '/contact': typeof SiteContactRoute
   '/portfolio': typeof SitePortfolioRoute
   '/services': typeof SiteServicesRoute
-  '/vault/$galleryId': typeof VaultGalleryIdRoute
+  '/gallery/$galleryId': typeof GalleryGalleryIdRouteWithChildren
+  '/gallery/$galleryId/$subGalleryId': typeof GalleryGalleryIdSubGalleryIdRoute
+  '/gallery/BAHSSportsPhoto/boys-basketball': typeof GalleryBAHSSportsPhotoBoysBasketballRoute
+  '/gallery/BAHSSportsPhoto/boys-lacrosse': typeof GalleryBAHSSportsPhotoBoysLacrosseRoute
+  '/gallery/BAHSSportsPhoto/boys-volleyball': typeof GalleryBAHSSportsPhotoBoysVolleyballRoute
+  '/gallery/BAHSSportsPhoto/football': typeof GalleryBAHSSportsPhotoFootballRoute
+  '/gallery/BAHSSportsPhoto/girls-basketball': typeof GalleryBAHSSportsPhotoGirlsBasketballRoute
+  '/gallery/BAHSSportsPhoto/girls-lacrosse': typeof GalleryBAHSSportsPhotoGirlsLacrosseRoute
+  '/gallery/$galleryId/sub/$subGalleryId': typeof GalleryGalleryIdSubSubGalleryIdRoute
 }
 export interface FileRoutesByTo {
+  '/gallery': typeof GalleryRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/vault': typeof VaultRouteWithChildren
   '/about': typeof SiteAboutRoute
   '/contact': typeof SiteContactRoute
   '/portfolio': typeof SitePortfolioRoute
   '/services': typeof SiteServicesRoute
-  '/vault/$galleryId': typeof VaultGalleryIdRoute
+  '/gallery/$galleryId': typeof GalleryGalleryIdRouteWithChildren
   '/': typeof SiteIndexRoute
+  '/gallery/$galleryId/$subGalleryId': typeof GalleryGalleryIdSubGalleryIdRoute
+  '/gallery/BAHSSportsPhoto/boys-basketball': typeof GalleryBAHSSportsPhotoBoysBasketballRoute
+  '/gallery/BAHSSportsPhoto/boys-lacrosse': typeof GalleryBAHSSportsPhotoBoysLacrosseRoute
+  '/gallery/BAHSSportsPhoto/boys-volleyball': typeof GalleryBAHSSportsPhotoBoysVolleyballRoute
+  '/gallery/BAHSSportsPhoto/football': typeof GalleryBAHSSportsPhotoFootballRoute
+  '/gallery/BAHSSportsPhoto/girls-basketball': typeof GalleryBAHSSportsPhotoGirlsBasketballRoute
+  '/gallery/BAHSSportsPhoto/girls-lacrosse': typeof GalleryBAHSSportsPhotoGirlsLacrosseRoute
+  '/gallery/$galleryId/sub/$subGalleryId': typeof GalleryGalleryIdSubSubGalleryIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_site': typeof SiteRouteWithChildren
+  '/gallery': typeof GalleryRouteWithChildren
   '/sitemap.xml': typeof SitemapDotxmlRoute
-  '/vault': typeof VaultRouteWithChildren
   '/_site/about': typeof SiteAboutRoute
   '/_site/contact': typeof SiteContactRoute
   '/_site/portfolio': typeof SitePortfolioRoute
   '/_site/services': typeof SiteServicesRoute
-  '/vault/$galleryId': typeof VaultGalleryIdRoute
+  '/gallery/$galleryId': typeof GalleryGalleryIdRouteWithChildren
   '/_site/': typeof SiteIndexRoute
+  '/gallery/$galleryId/$subGalleryId': typeof GalleryGalleryIdSubGalleryIdRoute
+  '/gallery/BAHSSportsPhoto/boys-basketball': typeof GalleryBAHSSportsPhotoBoysBasketballRoute
+  '/gallery/BAHSSportsPhoto/boys-lacrosse': typeof GalleryBAHSSportsPhotoBoysLacrosseRoute
+  '/gallery/BAHSSportsPhoto/boys-volleyball': typeof GalleryBAHSSportsPhotoBoysVolleyballRoute
+  '/gallery/BAHSSportsPhoto/football': typeof GalleryBAHSSportsPhotoFootballRoute
+  '/gallery/BAHSSportsPhoto/girls-basketball': typeof GalleryBAHSSportsPhotoGirlsBasketballRoute
+  '/gallery/BAHSSportsPhoto/girls-lacrosse': typeof GalleryBAHSSportsPhotoGirlsLacrosseRoute
+  '/gallery/$galleryId/sub/$subGalleryId': typeof GalleryGalleryIdSubSubGalleryIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/gallery'
     | '/sitemap.xml'
-    | '/vault'
     | '/about'
     | '/contact'
     | '/portfolio'
     | '/services'
-    | '/vault/$galleryId'
+    | '/gallery/$galleryId'
+    | '/gallery/$galleryId/$subGalleryId'
+    | '/gallery/BAHSSportsPhoto/boys-basketball'
+    | '/gallery/BAHSSportsPhoto/boys-lacrosse'
+    | '/gallery/BAHSSportsPhoto/boys-volleyball'
+    | '/gallery/BAHSSportsPhoto/football'
+    | '/gallery/BAHSSportsPhoto/girls-basketball'
+    | '/gallery/BAHSSportsPhoto/girls-lacrosse'
+    | '/gallery/$galleryId/sub/$subGalleryId'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/gallery'
     | '/sitemap.xml'
-    | '/vault'
     | '/about'
     | '/contact'
     | '/portfolio'
     | '/services'
-    | '/vault/$galleryId'
+    | '/gallery/$galleryId'
     | '/'
+    | '/gallery/$galleryId/$subGalleryId'
+    | '/gallery/BAHSSportsPhoto/boys-basketball'
+    | '/gallery/BAHSSportsPhoto/boys-lacrosse'
+    | '/gallery/BAHSSportsPhoto/boys-volleyball'
+    | '/gallery/BAHSSportsPhoto/football'
+    | '/gallery/BAHSSportsPhoto/girls-basketball'
+    | '/gallery/BAHSSportsPhoto/girls-lacrosse'
+    | '/gallery/$galleryId/sub/$subGalleryId'
   id:
     | '__root__'
     | '/_site'
+    | '/gallery'
     | '/sitemap.xml'
-    | '/vault'
     | '/_site/about'
     | '/_site/contact'
     | '/_site/portfolio'
     | '/_site/services'
-    | '/vault/$galleryId'
+    | '/gallery/$galleryId'
     | '/_site/'
+    | '/gallery/$galleryId/$subGalleryId'
+    | '/gallery/BAHSSportsPhoto/boys-basketball'
+    | '/gallery/BAHSSportsPhoto/boys-lacrosse'
+    | '/gallery/BAHSSportsPhoto/boys-volleyball'
+    | '/gallery/BAHSSportsPhoto/football'
+    | '/gallery/BAHSSportsPhoto/girls-basketball'
+    | '/gallery/BAHSSportsPhoto/girls-lacrosse'
+    | '/gallery/$galleryId/sub/$subGalleryId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   SiteRoute: typeof SiteRouteWithChildren
+  GalleryRoute: typeof GalleryRouteWithChildren
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
-  VaultRoute: typeof VaultRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/vault': {
-      id: '/vault'
-      path: '/vault'
-      fullPath: '/vault'
-      preLoaderRoute: typeof VaultRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/gallery': {
+      id: '/gallery'
+      path: '/gallery'
+      fullPath: '/gallery'
+      preLoaderRoute: typeof GalleryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_site': {
@@ -166,12 +270,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteIndexRouteImport
       parentRoute: typeof SiteRoute
     }
-    '/vault/$galleryId': {
-      id: '/vault/$galleryId'
+    '/gallery/$galleryId': {
+      id: '/gallery/$galleryId'
       path: '/$galleryId'
-      fullPath: '/vault/$galleryId'
-      preLoaderRoute: typeof VaultGalleryIdRouteImport
-      parentRoute: typeof VaultRoute
+      fullPath: '/gallery/$galleryId'
+      preLoaderRoute: typeof GalleryGalleryIdRouteImport
+      parentRoute: typeof GalleryRoute
     }
     '/_site/services': {
       id: '/_site/services'
@@ -201,6 +305,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteAboutRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/gallery/BAHSSportsPhoto/girls-lacrosse': {
+      id: '/gallery/BAHSSportsPhoto/girls-lacrosse'
+      path: '/BAHSSportsPhoto/girls-lacrosse'
+      fullPath: '/gallery/BAHSSportsPhoto/girls-lacrosse'
+      preLoaderRoute: typeof GalleryBAHSSportsPhotoGirlsLacrosseRouteImport
+      parentRoute: typeof GalleryRoute
+    }
+    '/gallery/BAHSSportsPhoto/girls-basketball': {
+      id: '/gallery/BAHSSportsPhoto/girls-basketball'
+      path: '/BAHSSportsPhoto/girls-basketball'
+      fullPath: '/gallery/BAHSSportsPhoto/girls-basketball'
+      preLoaderRoute: typeof GalleryBAHSSportsPhotoGirlsBasketballRouteImport
+      parentRoute: typeof GalleryRoute
+    }
+    '/gallery/BAHSSportsPhoto/football': {
+      id: '/gallery/BAHSSportsPhoto/football'
+      path: '/BAHSSportsPhoto/football'
+      fullPath: '/gallery/BAHSSportsPhoto/football'
+      preLoaderRoute: typeof GalleryBAHSSportsPhotoFootballRouteImport
+      parentRoute: typeof GalleryRoute
+    }
+    '/gallery/BAHSSportsPhoto/boys-volleyball': {
+      id: '/gallery/BAHSSportsPhoto/boys-volleyball'
+      path: '/BAHSSportsPhoto/boys-volleyball'
+      fullPath: '/gallery/BAHSSportsPhoto/boys-volleyball'
+      preLoaderRoute: typeof GalleryBAHSSportsPhotoBoysVolleyballRouteImport
+      parentRoute: typeof GalleryRoute
+    }
+    '/gallery/BAHSSportsPhoto/boys-lacrosse': {
+      id: '/gallery/BAHSSportsPhoto/boys-lacrosse'
+      path: '/BAHSSportsPhoto/boys-lacrosse'
+      fullPath: '/gallery/BAHSSportsPhoto/boys-lacrosse'
+      preLoaderRoute: typeof GalleryBAHSSportsPhotoBoysLacrosseRouteImport
+      parentRoute: typeof GalleryRoute
+    }
+    '/gallery/BAHSSportsPhoto/boys-basketball': {
+      id: '/gallery/BAHSSportsPhoto/boys-basketball'
+      path: '/BAHSSportsPhoto/boys-basketball'
+      fullPath: '/gallery/BAHSSportsPhoto/boys-basketball'
+      preLoaderRoute: typeof GalleryBAHSSportsPhotoBoysBasketballRouteImport
+      parentRoute: typeof GalleryRoute
+    }
+    '/gallery/$galleryId/$subGalleryId': {
+      id: '/gallery/$galleryId/$subGalleryId'
+      path: '/$subGalleryId'
+      fullPath: '/gallery/$galleryId/$subGalleryId'
+      preLoaderRoute: typeof GalleryGalleryIdSubGalleryIdRouteImport
+      parentRoute: typeof GalleryGalleryIdRoute
+    }
+    '/gallery/$galleryId/sub/$subGalleryId': {
+      id: '/gallery/$galleryId/sub/$subGalleryId'
+      path: '/sub/$subGalleryId'
+      fullPath: '/gallery/$galleryId/sub/$subGalleryId'
+      preLoaderRoute: typeof GalleryGalleryIdSubSubGalleryIdRouteImport
+      parentRoute: typeof GalleryGalleryIdRoute
+    }
   }
 }
 
@@ -222,20 +382,51 @@ const SiteRouteChildren: SiteRouteChildren = {
 
 const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
 
-interface VaultRouteChildren {
-  VaultGalleryIdRoute: typeof VaultGalleryIdRoute
+interface GalleryGalleryIdRouteChildren {
+  GalleryGalleryIdSubGalleryIdRoute: typeof GalleryGalleryIdSubGalleryIdRoute
+  GalleryGalleryIdSubSubGalleryIdRoute: typeof GalleryGalleryIdSubSubGalleryIdRoute
 }
 
-const VaultRouteChildren: VaultRouteChildren = {
-  VaultGalleryIdRoute: VaultGalleryIdRoute,
+const GalleryGalleryIdRouteChildren: GalleryGalleryIdRouteChildren = {
+  GalleryGalleryIdSubGalleryIdRoute: GalleryGalleryIdSubGalleryIdRoute,
+  GalleryGalleryIdSubSubGalleryIdRoute: GalleryGalleryIdSubSubGalleryIdRoute,
 }
 
-const VaultRouteWithChildren = VaultRoute._addFileChildren(VaultRouteChildren)
+const GalleryGalleryIdRouteWithChildren =
+  GalleryGalleryIdRoute._addFileChildren(GalleryGalleryIdRouteChildren)
+
+interface GalleryRouteChildren {
+  GalleryGalleryIdRoute: typeof GalleryGalleryIdRouteWithChildren
+  GalleryBAHSSportsPhotoBoysBasketballRoute: typeof GalleryBAHSSportsPhotoBoysBasketballRoute
+  GalleryBAHSSportsPhotoBoysLacrosseRoute: typeof GalleryBAHSSportsPhotoBoysLacrosseRoute
+  GalleryBAHSSportsPhotoBoysVolleyballRoute: typeof GalleryBAHSSportsPhotoBoysVolleyballRoute
+  GalleryBAHSSportsPhotoFootballRoute: typeof GalleryBAHSSportsPhotoFootballRoute
+  GalleryBAHSSportsPhotoGirlsBasketballRoute: typeof GalleryBAHSSportsPhotoGirlsBasketballRoute
+  GalleryBAHSSportsPhotoGirlsLacrosseRoute: typeof GalleryBAHSSportsPhotoGirlsLacrosseRoute
+}
+
+const GalleryRouteChildren: GalleryRouteChildren = {
+  GalleryGalleryIdRoute: GalleryGalleryIdRouteWithChildren,
+  GalleryBAHSSportsPhotoBoysBasketballRoute:
+    GalleryBAHSSportsPhotoBoysBasketballRoute,
+  GalleryBAHSSportsPhotoBoysLacrosseRoute:
+    GalleryBAHSSportsPhotoBoysLacrosseRoute,
+  GalleryBAHSSportsPhotoBoysVolleyballRoute:
+    GalleryBAHSSportsPhotoBoysVolleyballRoute,
+  GalleryBAHSSportsPhotoFootballRoute: GalleryBAHSSportsPhotoFootballRoute,
+  GalleryBAHSSportsPhotoGirlsBasketballRoute:
+    GalleryBAHSSportsPhotoGirlsBasketballRoute,
+  GalleryBAHSSportsPhotoGirlsLacrosseRoute:
+    GalleryBAHSSportsPhotoGirlsLacrosseRoute,
+}
+
+const GalleryRouteWithChildren =
+  GalleryRoute._addFileChildren(GalleryRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   SiteRoute: SiteRouteWithChildren,
+  GalleryRoute: GalleryRouteWithChildren,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
-  VaultRoute: VaultRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
