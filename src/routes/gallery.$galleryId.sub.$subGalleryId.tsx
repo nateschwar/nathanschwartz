@@ -47,29 +47,6 @@ function SubGalleryPage() {
     setDownloadingAll(false);
   };
 
-  useEffect(() => {
-    if (viewing === null) return;
-
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setViewing(null);
-      if (event.key === "ArrowRight") {
-        setViewing((value) => (value === null ? value : (value + 1) % visibleImages.length));
-      }
-      if (event.key === "ArrowLeft") {
-        setViewing((value) =>
-          value === null ? value : (value - 1 + visibleImages.length) % visibleImages.length,
-        );
-      }
-    };
-
-    window.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-    };
-  }, [gallery, viewing, visibleImages.length]);
 
   if (!gallery || !subGallery) {
     return (
