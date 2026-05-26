@@ -210,7 +210,7 @@ function SubGalleryPage() {
             }}
             className="absolute left-2 top-1/2 inline-flex size-12 -translate-y-1/2 items-center justify-center text-white/70 transition-colors hover:text-vivid md:left-6"
           >
-            <ChevronLeft aria-hidden="true} size={34} />
+            <ChevronLeft aria-hidden="true" size={34} />
           </button>
           <button
             type="button"
@@ -221,7 +221,7 @@ function SubGalleryPage() {
             }}
             className="absolute right-2 top-1/2 inline-flex size-12 -translate-y-1/2 items-center justify-center text-white/70 transition-colors hover:text-vivid md:right-6"
           >
-            <ChevronRight aria-hidden="true} size={34} />
+            <ChevronRight aria-hidden="true" size={34} />
           </button>
           <div
             className="flex max-h-[90vh] max-w-[92vw] flex-col items-center gap-4"
@@ -239,7 +239,7 @@ function SubGalleryPage() {
                 download={current.name}
                 className="inline-flex h-11 items-center justify-center gap-2 bg-vivid px-5 text-[11px] font-bold uppercase tracking-widest text-dark transition-colors hover:bg-white"
               >
-                <Download aria-hidden="true} size={16} />
+                <Download aria-hidden="true" size={16} />
                 Download Original
               </a>
             </div>
