@@ -18,6 +18,8 @@ import { Route as SiteServicesRouteImport } from './routes/_site.services'
 import { Route as SitePortfolioRouteImport } from './routes/_site.portfolio'
 import { Route as SiteContactRouteImport } from './routes/_site.contact'
 import { Route as SiteAboutRouteImport } from './routes/_site.about'
+import { Route as GalleryBAHSSportsPhotoSoftballRouteImport } from './routes/gallery.BAHSSportsPhoto.softball'
+import { Route as GalleryBAHSSportsPhotoGirlsVolleyballRouteImport } from './routes/gallery.BAHSSportsPhoto.girls-volleyball'
 import { Route as GalleryBAHSSportsPhotoGirlsLacrosseRouteImport } from './routes/gallery.BAHSSportsPhoto.girls-lacrosse'
 import { Route as GalleryBAHSSportsPhotoGirlsBasketballRouteImport } from './routes/gallery.BAHSSportsPhoto.girls-basketball'
 import { Route as GalleryBAHSSportsPhotoFootballRouteImport } from './routes/gallery.BAHSSportsPhoto.football'
@@ -71,6 +73,18 @@ const SiteAboutRoute = SiteAboutRouteImport.update({
   path: '/about',
   getParentRoute: () => SiteRoute,
 } as any)
+const GalleryBAHSSportsPhotoSoftballRoute =
+  GalleryBAHSSportsPhotoSoftballRouteImport.update({
+    id: '/BAHSSportsPhoto/softball',
+    path: '/BAHSSportsPhoto/softball',
+    getParentRoute: () => GalleryRoute,
+  } as any)
+const GalleryBAHSSportsPhotoGirlsVolleyballRoute =
+  GalleryBAHSSportsPhotoGirlsVolleyballRouteImport.update({
+    id: '/BAHSSportsPhoto/girls-volleyball',
+    path: '/BAHSSportsPhoto/girls-volleyball',
+    getParentRoute: () => GalleryRoute,
+  } as any)
 const GalleryBAHSSportsPhotoGirlsLacrosseRoute =
   GalleryBAHSSportsPhotoGirlsLacrosseRouteImport.update({
     id: '/BAHSSportsPhoto/girls-lacrosse',
@@ -136,6 +150,8 @@ export interface FileRoutesByFullPath {
   '/gallery/BAHSSportsPhoto/football': typeof GalleryBAHSSportsPhotoFootballRoute
   '/gallery/BAHSSportsPhoto/girls-basketball': typeof GalleryBAHSSportsPhotoGirlsBasketballRoute
   '/gallery/BAHSSportsPhoto/girls-lacrosse': typeof GalleryBAHSSportsPhotoGirlsLacrosseRoute
+  '/gallery/BAHSSportsPhoto/girls-volleyball': typeof GalleryBAHSSportsPhotoGirlsVolleyballRoute
+  '/gallery/BAHSSportsPhoto/softball': typeof GalleryBAHSSportsPhotoSoftballRoute
   '/gallery/$galleryId/sub/$subGalleryId': typeof GalleryGalleryIdSubSubGalleryIdRoute
 }
 export interface FileRoutesByTo {
@@ -154,6 +170,8 @@ export interface FileRoutesByTo {
   '/gallery/BAHSSportsPhoto/football': typeof GalleryBAHSSportsPhotoFootballRoute
   '/gallery/BAHSSportsPhoto/girls-basketball': typeof GalleryBAHSSportsPhotoGirlsBasketballRoute
   '/gallery/BAHSSportsPhoto/girls-lacrosse': typeof GalleryBAHSSportsPhotoGirlsLacrosseRoute
+  '/gallery/BAHSSportsPhoto/girls-volleyball': typeof GalleryBAHSSportsPhotoGirlsVolleyballRoute
+  '/gallery/BAHSSportsPhoto/softball': typeof GalleryBAHSSportsPhotoSoftballRoute
   '/gallery/$galleryId/sub/$subGalleryId': typeof GalleryGalleryIdSubSubGalleryIdRoute
 }
 export interface FileRoutesById {
@@ -174,6 +192,8 @@ export interface FileRoutesById {
   '/gallery/BAHSSportsPhoto/football': typeof GalleryBAHSSportsPhotoFootballRoute
   '/gallery/BAHSSportsPhoto/girls-basketball': typeof GalleryBAHSSportsPhotoGirlsBasketballRoute
   '/gallery/BAHSSportsPhoto/girls-lacrosse': typeof GalleryBAHSSportsPhotoGirlsLacrosseRoute
+  '/gallery/BAHSSportsPhoto/girls-volleyball': typeof GalleryBAHSSportsPhotoGirlsVolleyballRoute
+  '/gallery/BAHSSportsPhoto/softball': typeof GalleryBAHSSportsPhotoSoftballRoute
   '/gallery/$galleryId/sub/$subGalleryId': typeof GalleryGalleryIdSubSubGalleryIdRoute
 }
 export interface FileRouteTypes {
@@ -194,6 +214,8 @@ export interface FileRouteTypes {
     | '/gallery/BAHSSportsPhoto/football'
     | '/gallery/BAHSSportsPhoto/girls-basketball'
     | '/gallery/BAHSSportsPhoto/girls-lacrosse'
+    | '/gallery/BAHSSportsPhoto/girls-volleyball'
+    | '/gallery/BAHSSportsPhoto/softball'
     | '/gallery/$galleryId/sub/$subGalleryId'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -212,6 +234,8 @@ export interface FileRouteTypes {
     | '/gallery/BAHSSportsPhoto/football'
     | '/gallery/BAHSSportsPhoto/girls-basketball'
     | '/gallery/BAHSSportsPhoto/girls-lacrosse'
+    | '/gallery/BAHSSportsPhoto/girls-volleyball'
+    | '/gallery/BAHSSportsPhoto/softball'
     | '/gallery/$galleryId/sub/$subGalleryId'
   id:
     | '__root__'
@@ -231,6 +255,8 @@ export interface FileRouteTypes {
     | '/gallery/BAHSSportsPhoto/football'
     | '/gallery/BAHSSportsPhoto/girls-basketball'
     | '/gallery/BAHSSportsPhoto/girls-lacrosse'
+    | '/gallery/BAHSSportsPhoto/girls-volleyball'
+    | '/gallery/BAHSSportsPhoto/softball'
     | '/gallery/$galleryId/sub/$subGalleryId'
   fileRoutesById: FileRoutesById
 }
@@ -304,6 +330,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/about'
       preLoaderRoute: typeof SiteAboutRouteImport
       parentRoute: typeof SiteRoute
+    }
+    '/gallery/BAHSSportsPhoto/softball': {
+      id: '/gallery/BAHSSportsPhoto/softball'
+      path: '/BAHSSportsPhoto/softball'
+      fullPath: '/gallery/BAHSSportsPhoto/softball'
+      preLoaderRoute: typeof GalleryBAHSSportsPhotoSoftballRouteImport
+      parentRoute: typeof GalleryRoute
+    }
+    '/gallery/BAHSSportsPhoto/girls-volleyball': {
+      id: '/gallery/BAHSSportsPhoto/girls-volleyball'
+      path: '/BAHSSportsPhoto/girls-volleyball'
+      fullPath: '/gallery/BAHSSportsPhoto/girls-volleyball'
+      preLoaderRoute: typeof GalleryBAHSSportsPhotoGirlsVolleyballRouteImport
+      parentRoute: typeof GalleryRoute
     }
     '/gallery/BAHSSportsPhoto/girls-lacrosse': {
       id: '/gallery/BAHSSportsPhoto/girls-lacrosse'
@@ -403,6 +443,8 @@ interface GalleryRouteChildren {
   GalleryBAHSSportsPhotoFootballRoute: typeof GalleryBAHSSportsPhotoFootballRoute
   GalleryBAHSSportsPhotoGirlsBasketballRoute: typeof GalleryBAHSSportsPhotoGirlsBasketballRoute
   GalleryBAHSSportsPhotoGirlsLacrosseRoute: typeof GalleryBAHSSportsPhotoGirlsLacrosseRoute
+  GalleryBAHSSportsPhotoGirlsVolleyballRoute: typeof GalleryBAHSSportsPhotoGirlsVolleyballRoute
+  GalleryBAHSSportsPhotoSoftballRoute: typeof GalleryBAHSSportsPhotoSoftballRoute
 }
 
 const GalleryRouteChildren: GalleryRouteChildren = {
@@ -418,6 +460,9 @@ const GalleryRouteChildren: GalleryRouteChildren = {
     GalleryBAHSSportsPhotoGirlsBasketballRoute,
   GalleryBAHSSportsPhotoGirlsLacrosseRoute:
     GalleryBAHSSportsPhotoGirlsLacrosseRoute,
+  GalleryBAHSSportsPhotoGirlsVolleyballRoute:
+    GalleryBAHSSportsPhotoGirlsVolleyballRoute,
+  GalleryBAHSSportsPhotoSoftballRoute: GalleryBAHSSportsPhotoSoftballRoute,
 }
 
 const GalleryRouteWithChildren =
