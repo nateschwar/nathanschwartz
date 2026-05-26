@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ChevronLeft, ChevronRight, Download, Images, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getGallery, getSubGallery, slugify } from "@/lib/gallery-data";
+import { ImageViewer } from "@/components/ImageViewer";
 
 export const Route = createFileRoute("/gallery/BAHSSportsPhoto/girls-volleyball")({
   head: () => {
@@ -45,29 +46,6 @@ function SubGalleryPage() {
     setDownloadingAll(false);
   };
 
-  useEffect(() => {
-    if (viewing === null) return;
-
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setViewing(null);
-      if (event.key === "ArrowRight") {
-        setViewing((value) => (value === null ? value : (value + 1) % visibleImages.length));
-      }
-      if (event.key === "ArrowLeft") {
-        setViewing((value) =>
-          value === null ? value : (value - 1 + visibleImages.length) % visibleImages.length,
-        );
-      }
-    };
-
-    window.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
-    };
-  }, [gallery, viewing, visibleImages.length]);
 
   if (!gallery || !subGallery) {
     return (
@@ -186,66 +164,12 @@ function SubGalleryPage() {
         </section>
       </main>
 
-      {current && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 px-4 py-6 text-white"
-          onClick={() => setViewing(null)}
-        >
-          <button
-            type="button"
-            aria-label="Close"
-            onClick={() => setViewing(null)}
-            className="absolute right-4 top-4 inline-flex size-11 items-center justify-center text-white/70 transition-colors hover:text-vivid md:right-8 md:top-8"
-          >
-            <X aria-hidden="true" size={28} />
-          </button>
-          <button
-            type="button"
-            aria-label="Previous"
-            onClick={(event) => {
-              event.stopPropagation();
-              setViewing((value) =>
-                value === null ? value : (value - 1 + visibleImages.length) % visibleImages.length,
-              );
-            }}
-            className="absolute left-2 top-1/2 inline-flex size-12 -translate-y-1/2 items-center justify-center text-white/70 transition-colors hover:text-vivid md:left-6"
-          >
-            <ChevronLeft aria-hidden="true" size={34} />
-          </button>
-          <button
-            type="button"
-            aria-label="Next"
-            onClick={(event) => {
-              event.stopPropagation();
-              setViewing((value) => (value === null ? value : (value + 1) % visibleImages.length));
-            }}
-            className="absolute right-2 top-1/2 inline-flex size-12 -translate-y-1/2 items-center justify-center text-white/70 transition-colors hover:text-vivid md:right-6"
-          >
-            <ChevronRight aria-hidden="true" size={34} />
-          </button>
-          <div
-            className="flex max-h-[90vh] max-w-[92vw] flex-col items-center gap-4"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <img
-              src={current.preview}
-              alt={current.title}
-              className="max-h-[78vh] max-w-[92vw] object-contain"
-            />
-            <div className="flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <p className="text-sm font-semibold uppercase tracking-widest">{current.title}</p>
-              <a
-                href={current.full}
-                download={current.name}
-                className="inline-flex h-11 items-center justify-center gap-2 bg-vivid px-5 text-[11px] font-bold uppercase tracking-widest text-dark transition-colors hover:bg-white"
-              >
-                <Download aria-hidden="true" size={16} />
-                Download Original
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
+      <ImageViewer
+        images={visibleImages}
+        index={viewing}
+        onClose={() => setViewing(null)}
+        onIndexChange={setViewing}
+      />
     </div>
   );
 }
